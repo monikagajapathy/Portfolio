@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monika G — AI & Cloud Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<div class="lottie-ambient lottie-amb-1" data-speed="0.35" aria-hidden="true">
+  <dotlottie-wc src="https://lottie.host/2506a0e7-7000-4a08-9b80-91666a041f7a/lz0LfHvRqN.json" autoplay loop></dotlottie-wc>
+</div>
+<script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.9.14/dist/dotlottie-wc.js" type="module"></script>
+<style>
+:root{
+  --bg:#060911;
+  --bg-elev:#0c121e;
+  --bg-card:#0f1626;
+  --line:rgba(215, 225, 148, 0.395);
+  --line-strong:rgba(148,178,225,0.25);
+  --blue:blue;
+  --cyan:#00ffff5a;
+  --violet:rgb(193, 7, 193);
+  --cyan:#00ffff;
+  --text:#e7edf7;
+  --dim:#8b98b3;
+  --dimmer:#5b6478;
+  --success:#43e0a5;
+  --font-display:'Space Grotesk', system-ui, sans-serif;
+  --font-mono:'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+  --font-body:'Inter', system-ui, sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font-body);
+  overflow-x:hidden;
+  line-height:1.6;
+}
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+}
+
+/* ---------- background layers ---------- */
+#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;}
+.grid-layer{
+  position:fixed;inset:-10%;z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size:64px 64px;
+  opacity:0.35;
+  mask-image:radial-gradient(ellipse 70% 60% at 50% 20%, black 30%, transparent 75%);
+}
+.glow-orb{
+  position:fixed;border-radius:50%;filter:blur(90px);pointer-events:none;z-index:0;opacity:0.35;
+}
+.glow-1{width:520px;height:520px;background:var(--blue);top:-10%;left:-8%;}
+.glow-2{width:460px;height:460px;background:var(--violet);top:35%;right:-10%;}
+.glow-3{width:420px;height:420px;background:var(--cyan);bottom:-8%;left:20%;}
+
+section, header, footer{position:relative;z-index:1;}
+
+/* ---------- nav ---------- */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px clamp(20px,5vw,64px);
+  background:rgba(6,9,17,0.55);
+  backdrop-filter:blur(14px);
+  
+}
+.logo{
+  font-family:var(--font-mono);font-size:14px;color:var(--cyan);letter-spacing:0.5px;
+  display:flex;align-items:center;gap:8px;
+}
+.logo::before{content:'●';color:var(--success);font-size:9px;animation:blink 2.2s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.25;}}
+.nav-links{display:flex;gap:clamp(16px,3vw,36px);font-family:var(--font-mono);font-size:13px;}
+.nav-links a{color:var(--dim);text-decoration:none;transition:color 0.25s;position:relative;}
+.nav-links a:hover, .nav-links a:focus-visible{color:var(--text);}
+.nav-links a::after{content:'';position:absolute;bottom:-6px;left:0;width:0;height:1px;background:var(--cyan);transition:width 0.25s;}
+.nav-links a:hover::after{width:100%;}
+@media (max-width:640px){.nav-links{display:none;}}
+
+/* ---------- hero ---------- */
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+  padding:120px clamp(20px,6vw,80px) 60px;
+  max-width:1180px;margin:0 auto;
+}
+.hero-grid{
+  display:grid;grid-template-columns:1.25fr 0.75fr;gap:48px;align-items:center;
+}
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr;}
+  .hero-photo-wrap{order:-1;margin:0 auto 20px;}
+}
+.hero-photo-wrap{position:relative;width:min(340px,80vw);margin:0 auto;}
+.hero-photo-glow{
+  position:absolute;inset:-70px;z-index:0;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0.85;pointer-events:none;
+}
+.hero-photo-glow dotlottie-wc{width:100%;height:100%;}
+.hero-photo-frame{
+  position:relative;z-index:1;aspect-ratio:1/1;border-radius:26px;overflow:hidden;
+  
+  background:linear-gradient(160deg,#101a2c,#0a1120);
+  box-shadow:0 30px 70px -25px rgba(76,139,255,0.45);
+}
+.hero-photo-frame img{width:100%;height:100%;object-fit:cover;display:block;}
+.photo-fallback{
+  position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;
+  gap:14px;text-align:center;color:var(--dimmer);
+}
+.photo-fallback span{
+  font-family:var(--font-display);font-size:2.4rem;font-weight:700;color:var(--blue);
+  width:84px;height:84px;border-radius:50%;border:1px solid var(--line-strong);
+  display:flex;align-items:center;justify-content:center;
+}
+.photo-fallback p{font-family:var(--font-mono);font-size:11px;line-height:1.6;}
+.photo-fallback code{color:var(--cyan);}
+.hero-photo-frame.photo-missing img{display:none;}
+.hero-photo-frame.photo-missing .photo-fallback{display:flex;}
+.hero-photo-tag{
+  position:absolute;bottom:-16px;left:50%;transform:translateX(-50%);z-index:2;
+  font-family:var(--font-mono);font-size:11px;color:var(--cyan);
+  background:var(--bg-elev);border:1px solid var(--line-strong);border-radius:999px;
+  padding:6px 16px;white-space:nowrap;
+}
+
+/* ambient lottie parallax layers */
+.lottie-ambient{
+  position:fixed;z-index:0;pointer-events:none;opacity:0.22;
+}
+.lottie-ambient dotlottie-wc{width:100%;height:100%;display:block;}
+.lottie-amb-1{width:360px;height:360px;top:8%;right:2%;}
+.lottie-amb-2{width:300px;height:300px;top:120%;left:10%;}
+@media (max-width:760px){
+  .lottie-amb-1{width:220px;height:220px;}
+  .lottie-amb-2{width:180px;height:180px;}
+}
+
+
+.terminal .path {
+  color: var(--cyan);
+}
+
+/* Highlight MONIKA in larger font */
+.terminal .name {
+  font-family: 'Poppins', sans-serif; /* You can try 'Orbitron' or 'Montserrat' for a tech look */
+  font-size: 70px;
+  font-weight: 700;
+  letter-spacing:0.1em;
+  color: #edf5f5; 
+  text-align: center;
+  text-shadow: 0 0 5px #00ffff, 0 0 5px #00ffff, 0 0 5px #00ffff;
+  
+}
+
+
+.cursor {
+  display: inline-block;
+  width: 7px;
+  height: 14px;
+  background: var(--cyan);
+  margin-left: 2px;
+  animation: cursor-blink 1s steps(1) infinite;
+  vertical-align: -2px;
+}
+
+@keyframes cursor-blink {
+  50% { opacity: 0; }
+}
+
+.hero h1{
+  font-family:var(--font-display);
+  font-weight:500;
+  font-size:clamp(2rem, 4vw, 4rem);
+  line-height:1.02;
+  letter-spacing:-0.02em;
+  margin-bottom:20px;
+}
+.hero h1 .accent{
+  background:linear-gradient(100deg, var(--blue), var(--cyan) 60%, var(--violet));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero-sub{
+  font-size:clamp(1rem,2vw,1.2rem);color:var(--dim);max-width:620px;margin-bottom:36px;
+}
+.hero-tags{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:44px;}
+.tag{
+  font-family:var(--font-mono);font-size:12px;color:var(--cyan);
+  border:1px solid var(--line-strong);border-radius:999px;padding:7px 14px;
+  background:rgba(34,211,238,0.05);
+}
+.hero-cta{display:flex;gap:16px;flex-wrap:wrap;}
+.btn{
+  font-family:var(--font-mono);font-size:13px;text-decoration:none;
+  padding:13px 26px;border-radius:8px;transition:transform 0.25s, box-shadow 0.25s;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.btn-primary{
+  background:linear-gradient(100deg, var(--blue), var(--cyan));
+  color:#04101c;font-weight:600;
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 30px -8px rgba(76,139,255,0.5);}
+.btn-ghost{border:1px solid var(--line-strong);color:var(--text);}
+.btn-ghost:hover{transform:translateY(-2px);border-color:var(--cyan);color:var(--cyan);}
+
+.scroll-hint{
+  position:absolute;bottom:34px;left:50%;transform:translateX(-50%);
+  font-family:var(--font-mono);font-size:11px;color:var(--dimmer);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+}
+.scroll-hint .line{width:1px;height:34px;background:linear-gradient(var(--dimmer),transparent);animation:scrolldown 1.8s infinite;}
+@keyframes scrolldown{0%{opacity:0;transform:scaleY(0);transform-origin:top;}40%{opacity:1;transform:scaleY(1);transform-origin:top;}100%{opacity:0;transform:scaleY(1);transform-origin:bottom;}}
+
+/* ---------- section shell ---------- */
+.section{padding:120px clamp(20px,6vw,80px);max-width:1180px;margin:0 auto;}
+.eyebrow{
+  font-family:var(--font-mono);font-size:12px;color:var(--cyan);letter-spacing:2px;
+  text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px;
+}
+.eyebrow::before{content:'';width:22px;height:1px;background:var(--cyan);}
+.section-title{
+  font-family:var(--font-display);font-weight:600;font-size:clamp(1.8rem,4vw,2.6rem);
+  margin-bottom:48px;letter-spacing:-0.01em;
+}
+
+.reveal{opacity:0;transform:translateY(36px);transition:opacity 0.8s ease, transform 0.8s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ---------- about / skills ---------- */
+.about-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:60px;align-items:start;}
+@media (max-width:860px){.about-grid{grid-template-columns:1fr;}}
+.about-text p{color:var(--dim);margin-bottom:16px;font-size:1.02rem;}
+.about-text strong{color:var(--text);font-weight:600;}
+
+.skill-orbit{position:relative;width:100%;aspect-ratio:1/1;max-width:380px;margin:0 auto;}
+.orbit-ring{position:absolute;border:1px solid var(--line-strong);border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);}
+
+.orbit-core{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:88px;height:88px;border-radius:50%;
+  background:radial-gradient(circle at 80% 80%, rgb(142, 1, 109), #00040c 70%);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-mono);font-size:11px;color:#6097ce;font-weight:700;
+  box-shadow:0 0 40px rgba(255, 0, 230, 0.45);
+  text-align:center;padding:8px;
+}
+.skill-node{
+  position:absolute;top:50%;left:50%;
+  transform-origin:0 0;
+  animation:linear spin infinite;
+  animation-duration:0.1em;
+}
+.skill-node .chip{
+  transform:translate(-50%,-50%);
+  font-family:var(--font-mono);font-size:11.5px;white-space:nowrap;
+  background:#6e015a;border:1px solid var(--line-strong);border-radius:999px;
+  box-shadow:0 0 40px rgba(103, 54, 98, 0.45);
+  padding:7px 13px;color:var(--white);display:inline-block;
+}
+@keyframes spin{from{transform:rotate(0deg) translateX(var(--r));}to{transform:rotate(360deg) translateX(var(--r));}}
+.skill-node .chip{animation:counter-spin linear infinite;animation-duration:0.2s;}
+@keyframes counter-spin{from{transform:translate(-50%,-50%) rotate(0deg);}to{transform:translate(-50%,-50%) rotate(-360deg);}}
+
+/* ---------- experience ---------- */
+.log{border-left:1px solid var(--line-strong);padding-left:0;}
+.log-entry{
+  position:relative;padding:0 0 40px 34px;
+}
+.log-entry:last-child{padding-bottom:0;}
+.log-entry::before{
+  content:'';position:absolute;left:-5.5px;top:4px;width:10px;height:10px;border-radius:50%;
+  background:var(--bg);border:2px solid var(--cyan);
+}
+.log-meta{font-family:var(--font-mono);font-size:12px;color:var(--cyan);margin-bottom:6px;}
+.log-role{font-family:var(--font-display);font-weight:600;font-size:1.15rem;margin-bottom:4px;}
+.log-org{color:var(--dim);font-size:0.92rem;margin-bottom:10px;}
+.log-desc{color:var(--dim);font-size:0.95rem;max-width:640px;}
+
+/* ---------- projects ---------- */
+.project-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:26px;}
+.card{
+  background:var(--bg-card);border:1px solid var(--line);border-radius:14px;
+  overflow:hidden;cursor:pointer;transition:transform 0.35s, border-color 0.35s, box-shadow 0.35s;
+  transform-style:preserve-3d;
+}
+.card:hover, .card:focus-visible{
+  border-color:var(--line-strong);
+  box-shadow:0 20px 50px -20px rgba(76,139,255,0.35);
+}
+.card-media{
+  height:190px;background:linear-gradient(135deg,#0d1524,#141d33);
+  position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;
+}
+.card-media img{width:100%;height:100%;object-fit:cover;opacity:0.9;transition:transform 0.5s;}
+.card:hover .card-media img{transform:scale(1.06);}
+.card-media .mock-icon{font-size:44px;opacity:0.7;}
+.card-index{
+  position:absolute;top:12px;left:12px;font-family:var(--font-mono);font-size:11px;
+  color:var(--cyan);background:rgba(6,9,17,0.7);border:1px solid var(--line-strong);
+  padding:3px 9px;border-radius:999px;
+}
+.card-body{padding:22px;}
+.card-body h3{font-family:var(--font-display);font-size:1.15rem;margin-bottom:8px;}
+.card-body p{color:var(--dim);font-size:0.92rem;margin-bottom:14px;}
+.card-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.card-tags span{
+  font-family:var(--font-mono);font-size:10.5px;color:var(--dim);
+  border:1px solid var(--line);padding:4px 9px;border-radius:6px;
+}
+.card-open{
+  margin-top:16px;font-family:var(--font-mono);font-size:12px;color:var(--cyan);
+  display:flex;align-items:center;gap:6px;
+}
+.card-open::after{content:'→';transition:transform 0.25s;}
+.card:hover .card-open::after{transform:translateX(4px);}
+
+/* ---------- modal ---------- */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(4,7,13,0.85);backdrop-filter:blur(6px);
+  z-index:100;display:none;align-items:flex-start;justify-content:center;
+  overflow-y:auto;padding:60px 20px;opacity:0;transition:opacity 0.3s;
+}
+.modal-overlay.open{display:flex;opacity:1;}
+.modal{
+  background:var(--bg-elev);border:1px solid var(--line-strong);border-radius:16px;
+  max-width:840px;width:100%;padding:0;overflow:hidden;
+  transform:translateY(30px) scale(0.98);opacity:0;transition:transform 0.4s cubic-bezier(.2,.9,.3,1), opacity 0.4s;
+}
+.modal-overlay.open .modal{transform:translateY(0) scale(1);opacity:1;}
+.modal-head{padding:28px 32px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:flex-start;gap:20px;}
+.modal-head h2{font-family:var(--font-display);font-size:1.5rem;}
+.modal-head .role{font-family:var(--font-mono);color:var(--cyan);font-size:12px;margin-top:6px;}
+.modal-close{
+  background:none;border:1px solid var(--line-strong);color:var(--dim);width:34px;height:34px;
+  border-radius:8px;cursor:pointer;font-size:16px;flex-shrink:0;transition:all 0.2s;
+}
+.modal-close:hover{color:var(--text);border-color:var(--cyan);}
+.modal-media{padding:24px 32px 0;}
+.modal-media img, .modal-media video{width:100%;border-radius:10px;border:1px solid var(--line);display:block;margin-bottom:14px;}
+.modal-media .media-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+@media (max-width:600px){.modal-media .media-row{grid-template-columns:1fr;}}
+.modal-body{padding:20px 32px 32px;}
+.modal-body p{color:var(--dim);margin-bottom:16px;}
+.modal-section-label{font-family:var(--font-mono);font-size:11px;color:var(--cyan);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px;}
+.modal-list{list-style:none;margin-bottom:20px;}
+.modal-list li{color:var(--dim);font-size:0.92rem;padding-left:18px;position:relative;margin-bottom:6px;}
+.modal-list li::before{content:'▸';position:absolute;left:0;color:var(--cyan);}
+.modal-tags{display:flex;flex-wrap:wrap;gap:8px;}
+.modal-tags span{font-family:var(--font-mono);font-size:11px;color:var(--text);border:1px solid var(--line-strong);padding:5px 11px;border-radius:6px;background:rgba(76,139,255,0.06);}
+.no-asset-note{font-family:var(--font-mono);font-size:11.5px;color:var(--dimmer);border:1px dashed var(--line-strong);border-radius:8px;padding:12px 14px;margin-bottom:14px;}
+
+/* ---------- certifications gallery ---------- */
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));align-items:center;gap:20px;}
+.gallery-item{
+  border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--bg-card);
+  cursor:pointer;transition:transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+.gallery-item:hover, .gallery-item:focus-visible{
+  transform:translateY(-5px);border-color:var(--line-strong);
+  box-shadow:0 18px 40px -18px rgba(76,139,255,0.4);
+}
+.gallery-thumb{height:150px;background:#0a0f1a;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.gallery-thumb img{width:100%;height:100%;object-fit:cover;}
+.gallery-caption{padding:14px 16px;}
+.gallery-caption h4{font-family:var(--font-display);font-size:0.9rem;margin-bottom:3px;line-height:1.25;}
+.gallery-caption p{color:var(--dimmer);font-size:0.76rem;font-family:var(--font-mono);}
+
+.lightbox{
+  position:fixed;inset:0;background:rgba(4,7,13,0.92);backdrop-filter:blur(8px);
+  z-index:200;display:none;align-items:center;justify-content:center;padding:40px 20px;
+  opacity:0;transition:opacity 0.3s;
+}
+.lightbox.open{display:flex;opacity:1;}
+.lightbox-inner{max-width:780px;width:100%;text-align:center;}
+.lightbox-inner img{max-width:100%;max-height:78vh;border-radius:10px;border:1px solid var(--line-strong);box-shadow:0 30px 80px -20px rgba(0,0,0,0.6);}
+.lightbox-caption{font-family:var(--font-mono);color:var(--dim);margin-top:18px;font-size:13px;}
+.lightbox-close{
+  position:absolute;top:24px;right:28px;background:none;border:1px solid var(--line-strong);
+  color:var(--dim);width:38px;height:38px;border-radius:8px;cursor:pointer;font-size:18px;transition:all 0.2s;
+}
+.lightbox-close:hover{color:var(--text);border-color:var(--cyan);}
+
+/* ---------- footer / contact ---------- */
+footer{
+  padding:100px clamp(20px,6vw,80px) 50px;
+  text-align:center;
+ 
+  margin-top:60px;
+  background:rgba(0, 0, 2, 0.317);
+  backdrop-filter:blur(14px);
+}
+
+
+footer h2{font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);margin-bottom:20px;}
+footer .contact-links{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin:30px 0 50px;font-family:var(--font-mono);font-size:13px;}
+footer .contact-links a{color:var(--dim);text-decoration:none;border-bottom:1px solid transparent;transition:all 0.25s;}
+footer .contact-links a:hover{color:var(--cyan);border-color:var(--cyan);}
+footer .footnote{color:var(--dimmer);font-size:12px;font-family:var(--font-mono);}
+</style>
+</head>
+<body>
+
+<div class="grid-layer" data-speed="0.15"></div>
+<div class="glow-orb glow-1" data-speed="0.25"></div>
+<div class="glow-orb glow-2" data-speed="0.4"></div>
+<div class="glow-orb glow-3" data-speed="0.1"></div>
+
+<!-- ambient parallax lottie layers -->
+<div class="lottie-ambient lottie-amb-1" data-speed="0.35" aria-hidden="true">
+  <dotlottie-wc src="https://lottie.host/2506a0e7-7000-4a08-9b80-91666a041f7a/lz0LfHvRqN.json" autoplay loop></dotlottie-wc>
+</div>
+<
+
+<nav>
+  <div class="logo">Monika.G</div>
+  <div class="nav-links">
+    <a href="#about">about</a>
+    <a href="#skills">skills</a>
+    <a href="#experience">experience</a>
+    <a href="#projects">projects</a>
+    <a href="#certs">certs</a>
+    <a href="#contact">contact</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <div class="terminal">
+        <span class="name">MONIKA G</span>
+        
+        
+      </div>
+      <h1>Building intelligent<br>systems, <span class="accent">one prompt<br>and pipeline at a time.</span></h1>
+      <p class="hero-sub">I'm Monika G — an AI &amp; Data Science student in Chennai who moves fluidly between prompt engineering, cloud infrastructure, and shipping real interfaces. This is a live log of what I've built.</p>
+      <div class="hero-tags">
+        <span class="tag">AWS Cloud</span>
+        <span class="tag">Python</span>
+        <span class="tag">Prompt Engineering</span>
+        <span class="tag">AI/ML</span>
+      </div>
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="#contact" class="btn btn-ghost">Get In Touch</a>
+      </div>
+    </div>
+    <div class="hero-photo-wrap">
+      
+      <div class="hero-photo-frame">
+        <img src="profile.jpg" alt="Monika G" onerror="this.parentElement.classList.add('photo-missing')">
+        <div class="photo-fallback">
+          <span>MG</span>
+          <p>Drop your photo at<br><code>profile.jpg</code></p>
+        </div>
+      </div>
+      <div class="hero-photo-tag">Chennai, IN</div>
+    </div>
+  </div>
+  <div class="scroll-hint"><span>SCROLL</span><span class="line"></span></div>
+</header>
+
+<section class="section" id="about">
+  <div class="eyebrow">01 / About</div>
+  <h2 class="section-title reveal">From cloud fundamentals to shipped AI products</h2>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>I'm currently pursuing my <strong>B.Tech in Artificial Intelligence and Data Science</strong> at Kings Engineering College. Over the past year I've moved through three different internships — cloud engineering, prompt engineering, and applied AI — picking up a working knowledge of how intelligent systems actually get built and deployed, not just theorized about.</p>
+      <p>I like projects that sit at the intersection of <strong>AI reasoning and practical interfaces</strong>: a viva examiner that evaluates real answers, an attendance system that replaces paperwork with a QR scan. I'm currently open to internships and entry-level roles in AI, cloud, and prompt engineering.</p>
+    </div>
+    <div class="skill-orbit reveal" id="skillOrbit"></div>
+  </div>
+</section>
+
+<section class="section" id="experience">
+  <div class="eyebrow">02 / Experience</div>
+  <h2 class="section-title reveal">Career log</h2>
+  <div class="log">
+    <div class="log-entry reveal">
+      <div class="log-meta">MAY 2026 — JUN 2026 · CHENNAI</div>
+      <div class="log-role">Artificial Intelligence Intern</div>
+      <div class="log-org">Plant Green Inertia Pvt Ltd</div>
+      <p class="log-desc">Worked on applied AI and machine learning concepts, explored data-driven solutions, and sharpened critical thinking around real-world AI use cases.</p>
+    </div>
+    <div class="log-entry reveal">
+      <div class="log-meta">DEC 2025 · CHENNAI</div>
+      <div class="log-role">Cloud Engineer Intern</div>
+      <div class="log-org">DLK Software Solutions</div>
+      <p class="log-desc">First hands-on exposure to cloud computing fundamentals through focused, one-on-one mentorship.</p>
+    </div>
+    <div class="log-entry reveal">
+      <div class="log-meta">SEP 2024 · CHENNAI</div>
+      <div class="log-role">Prompt Engineer Intern</div>
+      <div class="log-org">Informatronics Project Services</div>
+      <p class="log-desc">Learned to direct AI models for generation, modeling, and modification of digital content and workflows.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="projects">
+  <div class="eyebrow">03 / Projects</div>
+  <h2 class="section-title reveal">Click into anything — outputs included</h2>
+  <div class="project-grid">
+
+    <div class="card reveal" tabindex="0" data-project="viva">
+      <div class="card-media">
+        <span class="card-index">01</span>
+        <img src="viva-examiner.png" alt="Viva Examiner project screenshot">
+      </div>
+      <div class="card-body">
+        <h3>Viva Examiner (AI-Based)</h3>
+        <p>An AI-powered virtual viva assistant that conducts oral exams and gives instant feedback.</p>
+        <div class="card-tags"><span>HTML5</span><span>JS</span><span>AI API</span></div>
+        <div class="card-open">Open project</div>
+      </div>
+    </div>
+
+    <div class="card reveal" tabindex="0" data-project="qr">
+      <div class="card-media">
+        <span class="card-index">02</span>
+        <img src="qr-system.png" alt="TechCon 2026 Portal ticket booking screen">
+      </div>
+      <div class="card-body">
+        <h3>Smart QR Attendance System</h3>
+        <p>QR-based attendance management for fast, paperless check-ins with a live admin dashboard.</p>
+        <div class="card-tags"><span>JS</span><span>QR Library</span><span>Local Storage</span></div>
+        <div class="card-open">Open project</div>
+      </div>
+    </div>
+
+    <div class="card reveal" tabindex="0" data-project="movie">
+      <div class="card-media">
+        <span class="card-index">03</span>
+        <img src="moviehub-poster.png" alt="MovieHub Figma prototype home screen" onerror="this.style.display='none';this.parentElement.innerHTML+='<span class=&quot;mock-icon&quot;>🎬</span>'">
+      </div>
+      <div class="card-body">
+        <h3>MovieHub UI</h3>
+        <p>A modern movie browsing &amp; downloading platform, prototyped end-to-end in Figma.</p>
+        <div class="card-tags"><span>Figma</span><span>Auto Layout</span><span>Prototyping</span></div>
+        <div class="card-open">Open project</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section" id="certs">
+  <div class="eyebrow">04 / Certifications</div>
+  <h2 class="section-title reveal">Credentials &amp; badges</h2>
+  <p class="reveal" style="color:var(--dim);margin-top:-30px;margin-bottom:40px;max-width:640px;">Click any credential to view the full certificate.</p>
+  <div class="gallery-grid" id="certGallery"></div>
+</section>
+
+<footer id="contact">
+  <div class="eyebrow" style="justify-content:center;">05 / Contact</div>
+  <h2>Let's build something<br>intelligent together.</h2>
+  <div class="contact-links">
+    <a href="mailto:monikagajapathy@gmail.com">monikagajapathy@gmail.com</a>
+    <a href="tel:+916380310008">+91 63803 10008</a>
+    <a href="https://www.linkedin.com/in/monika-g-182364337" target="_blank">LinkedIn</a>
+
+  </div>
+  <p class="footnote">© 2026 Monika G — Chennai, India</p>
+</footer>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modalContent"></div>
+</div>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close">✕</button>
+  <div class="lightbox-inner">
+    <img id="lightboxImg" src="" alt="">
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+  </div>
+</div>
+
+<script>
+/* ---------- reveal on scroll ---------- */
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target);} });
+},{threshold:0.15});
+revealEls.forEach(el=>io.observe(el));
+
+/* ---------- parallax background layers ---------- */
+const parallaxEls = document.querySelectorAll('[data-speed]');
+function onScrollParallax(){
+  const y = window.scrollY;
+  parallaxEls.forEach(el=>{
+    const speed = parseFloat(el.dataset.speed);
+    el.style.transform = `translateY(${y*speed*0.3}px)`;
+  });
+}
+window.addEventListener('scroll', onScrollParallax, {passive:true});
+
+/* mouse parallax on glow orbs */
+window.addEventListener('mousemove', (e)=>{
+  const x = (e.clientX/window.innerWidth-0.5)*40;
+  const y = (e.clientY/window.innerHeight-0.5)*40;
+  document.querySelectorAll('.glow-orb').forEach((el,i)=>{
+    const dir = i%2===0?1:-1;
+    el.style.marginLeft = (x*dir*0.4)+'px';
+    el.style.marginTop = (y*dir*0.4)+'px';
+  });
+},{passive:true});
+
+/* tilt effect on project cards */
+document.querySelectorAll('.card').forEach(card=>{
+  card.addEventListener('mousemove', (e)=>{
+    const r = card.getBoundingClientRect();
+    const px = (e.clientX-r.left)/r.width-0.5;
+    const py = (e.clientY-r.top)/r.height-0.5;
+    card.style.transform = `perspective(700px) rotateY(${px*6}deg) rotateX(${-py*6}deg) translateY(-4px)`;
+  });
+  card.addEventListener('mouseleave', ()=>{ card.style.transform=''; });
+});
+
+/* ---------- skill orbit ---------- */
+const skills = ["Cloud Computing","AWS","Python","Prompt Engineering","Machine Learning","JavaScript","AI Integration"];
+const orbit = document.getElementById('skillOrbit');
+const core = document.createElement('div');
+core.className='orbit-core';
+core.textContent='CORE\nSKILLS';
+core.style.whiteSpace='pre-line';
+orbit.appendChild(core);
+const ringRadii=[130,158.188];
+ringRadii.forEach(r=>{
+  const ring=document.createElement('div');
+  ring.className='orbit-ring';
+  ring.style.width=r*2+'px';
+  ring.style.height=r*2+'px';
+  
+  orbit.appendChild(ring);
+});
+skills.forEach((s,i)=>{
+  const angle=(360/skills.length)*i;
+  const radius= 95 + (i%2)*55;
+  const dur = 26 + i*4;
+  const node=document.createElement('div');
+  node.className='skill-node';
+  node.style.setProperty('--r', radius+'px');
+  node.style.animationDuration=dur+'s';
+  node.style.transform=`rotate(${angle}deg) translateX(${radius}px)`;
+  const chip=document.createElement('span');
+  chip.className='chip';
+  chip.textContent=s;
+  chip.style.animationDuration=dur+'s';
+  node.appendChild(chip);
+  orbit.appendChild(node);
+});
+
+/* ---------- project modal data ---------- */
+const projects = {
+  viva:{
+    title:"Viva Examiner (AI-Based)",
+    role:"AI-powered virtual viva assistant",
+    media:`<div class="no-asset-note">▸ Full demo recording (~6 min) included in the downloaded project folder at viva-demo.mp4 — plays below when hosted alongside this file.</div>
+           <video controls preload="metadata" src="viva-demo.mp4"></video>`,
+    desc:"Viva Examiner simulates a real oral examination — asking subject-related questions, evaluating the quality of spoken or typed responses, and generating instant feedback. It was built to help students rehearse interviews and viva sessions independently, while cutting down the preliminary assessment load on faculty.",
+    highlights:["Conducts a full question → answer → feedback loop","Evaluates answer quality against subject context","Designed to reduce manual first-pass grading effort"],
+    tags:["HTML5","CSS3","JavaScript","AI API (Gemini/OpenAI)","Local Storage"]
+  },
+  qr:{
+    title:"Smart QR Attendance System",
+    role:"QR-based attendance management platform",
+    media:`<div class="media-row">
+             <img src="smartqr-portal.png" alt="TechCon 2026 ticket booking and AI event assistant screen">
+             <img src="smartqr-admin.png" alt="Admin desk live entry scanner and crowd analytics screen">
+           </div>`,
+    desc:"Built as the TechCon 2026 event portal: attendees register and generate a QR ticket, an AI assistant answers event questions on the spot, and at the door an admin desk scans tickets live while a demographic analytics panel tracks check-ins in real time.",
+    highlights:["Self-serve QR ticket generation on registration","Built-in AI assistant for attendee FAQs","Live entry scanner + real-time crowd analytics dashboard"],
+    tags:["HTML5","CSS3","JavaScript","QR Code Library","Local Storage"]
+  },
+  movie:{
+    title:"MovieHub UI",
+    role:"Movie browsing & download platform — Figma prototype",
+        media:`<div class="no-asset-note">▸ This is a Figma-only prototype right now. Drop your exported screens, PDF, or prototype recording into movie.mp4 and reference them here — the layout is ready for them.</div>
+          <video controls preload="metadata" src="movie.mp4"></video>`,
+    desc:"A UI/UX prototype for browsing and downloading movies, designed to feel clean and effortless to navigate. The focus was usability and visual hierarchy — clear categories, confident typography, and a browsing flow that gets out of the user's way.",
+    highlights:["Full component & variant system for reusable UI","Auto-layout screens for responsive behavior","Clickable prototype flow from login → browse → detail → download"],
+    tags:["Figma","Auto Layout","Components & Variants","Prototyping"]
+  }
+};
+
+const overlay = document.getElementById('modalOverlay');
+const modalContent = document.getElementById('modalContent');
+
+function openProject(key){
+  const p = projects[key];
+  modalContent.innerHTML = `
+    <div class="modal-head">
+      <div>
+        <h2>${p.title}</h2>
+        <div class="role">${p.role}</div>
+      </div>
+      <button class="modal-close" aria-label="Close">✕</button>
+    </div>
+    <div class="modal-media">${p.media}</div>
+    <div class="modal-body">
+      <div class="modal-section-label">Overview</div>
+      <p>${p.desc}</p>
+      <div class="modal-section-label">Highlights</div>
+      <ul class="modal-list">${p.highlights.map(h=>`<li>${h}</li>`).join('')}</ul>
+      <div class="modal-section-label">Tech Stack</div>
+      <div class="modal-tags">${p.tags.map(t=>`<span>${t}</span>`).join('')}</div>
+    </div>
+  `;
+  overlay.classList.add('open');
+  document.body.style.overflow='hidden';
+  modalContent.querySelector('.modal-close').addEventListener('click', closeProject);
+}
+function closeProject(){
+  overlay.classList.remove('open');
+  document.body.style.overflow='';
+}
+document.querySelectorAll('.card').forEach(card=>{
+  card.addEventListener('click', ()=>openProject(card.dataset.project));
+  card.addEventListener('keypress', (e)=>{ if(e.key==='Enter') openProject(card.dataset.project); });
+});
+overlay.addEventListener('click', (e)=>{ if(e.target===overlay) closeProject(); });
+document.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ closeProject(); closeLightbox(); } });
+
+/* ---------- certifications gallery ---------- */
+const certs = [
+  {img:"cert-csc-diploma.jpg", title:"Advanced Diploma in AI & Data Science", org:"CSC Computer Education · Apr–Aug 2024 · Grade B"},
+  {img:"badge-aws-academy-trained.png", title:"AWS Academy: Cloud Foundations", org:"Trained Badge"},
+  {img:"cert-aws-academy-cloudfoundations.png", title:"AWS Academy Graduate", org:"Cloud Foundations · 20 hrs · Feb 2026"},
+  {img:"badge-aws-scholars-partyrock.webp", title:"AWS AI & ML Scholars", org:"Analyze Data using AI with PartyRock"},
+  {img:"cert-aws-practice-exam.png", title:"AWS Certified Cloud Practitioner", org:"Official Practice Exam · Mar 2026"},
+  {img:"cert-aws-practice-questionset.png", title:"AWS Certified Cloud Practitioner", org:"Official Practice Question Set · Mar 2026"},
+  {img:"cert-udacity-aws-ai-practitioner.png", title:"AWS AI Practitioner Challenge", org:"Udacity · Apr 2026"},
+  {img:"cert-plantgreen.jpg", title:"Internship — Artificial Intelligence", org:"Plant Green Inertia Pvt Ltd · May–Jun 2026"},
+  {img:"cert-dlk-internship.jpg", title:"Internship — Cloud Computing", org:"DLK Software Solutions · Dec 2025–Jan 2026"},
+  {img:"cert-dlk-workshop.jpg", title:"Workshop — Cloud Computing", org:"DLK Software Solutions · Jan 2026"},
+  {img:"cert-infomatronics.jpg", title:"Internship — Prompt Engineering", org:"Infomatronics Project Services · Audio Clone project"}
+];
+const certGallery = document.getElementById('certGallery');
+certs.forEach(c=>{
+  const item = document.createElement('div');
+  item.className='gallery-item';
+  item.tabIndex=0;
+  item.innerHTML = `
+    <div class="gallery-thumb"><img src="${c.img}" alt="${c.title}" loading="lazy"></div>
+    <div class="gallery-caption"><h4>${c.title}</h4><p>${c.org}</p></div>
+  `;
+  item.addEventListener('click', ()=>openLightbox(c));
+  item.addEventListener('keypress', (e)=>{ if(e.key==='Enter') openLightbox(c); });
+  certGallery.appendChild(item);
+});
+
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightboxImg');
+const lightboxCaption = document.getElementById('lightboxCaption');
+function openLightbox(c){
+  lightboxImg.src = c.img;
+  lightboxImg.alt = c.title;
+  lightboxCaption.textContent = `${c.title} — ${c.org}`;
+  lightbox.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeLightbox(){
+  lightbox.classList.remove('open');
+  document.body.style.overflow='';
+}
+document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', (e)=>{ if(e.target===lightbox) closeLightbox(); });
+</script>
+</body>
+</html>
